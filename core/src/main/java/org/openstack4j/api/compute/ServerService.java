@@ -11,6 +11,7 @@ import org.openstack4j.model.compute.RebootType;
 import org.openstack4j.model.compute.Server;
 import org.openstack4j.model.compute.Server.Status;
 import org.openstack4j.model.compute.ServerCreate;
+import org.openstack4j.model.compute.ServerPassword;
 import org.openstack4j.model.compute.ServerUpdateOptions;
 import org.openstack4j.model.compute.VNCConsole;
 import org.openstack4j.model.compute.VNCConsole.Type;
@@ -323,4 +324,6 @@ public interface ServerService {
      * @return the interface service
      */
     InterfaceService interfaces();
+    
+    ServerPassword getPassword(String serverId);
 }

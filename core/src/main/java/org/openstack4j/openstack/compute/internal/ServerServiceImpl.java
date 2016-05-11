@@ -19,6 +19,7 @@ import org.openstack4j.model.compute.RebootType;
 import org.openstack4j.model.compute.Server;
 import org.openstack4j.model.compute.Server.Status;
 import org.openstack4j.model.compute.ServerCreate;
+import org.openstack4j.model.compute.ServerPassword;
 import org.openstack4j.model.compute.ServerUpdateOptions;
 import org.openstack4j.model.compute.VNCConsole;
 import org.openstack4j.model.compute.VNCConsole.Type;
@@ -29,6 +30,7 @@ import org.openstack4j.model.compute.actions.RebuildOptions;
 import org.openstack4j.model.compute.builder.ServerCreateBuilder;
 import org.openstack4j.openstack.common.Metadata;
 import org.openstack4j.openstack.compute.domain.ConsoleOutput;
+import org.openstack4j.openstack.compute.domain.NovaPassword;
 import org.openstack4j.openstack.compute.domain.NovaServer;
 import org.openstack4j.openstack.compute.domain.NovaServer.Servers;
 import org.openstack4j.openstack.compute.domain.NovaServerCreate;
@@ -436,4 +438,10 @@ public class ServerServiceImpl extends BaseComputeServices implements ServerServ
     public InterfaceService interfaces() {
         return Apis.get(InterfaceService.class);
     }
+    
+    @Override
+	public ServerPassword getPassword(String serverId) {
+		checkNotNull(serverId);
+		return get(NovaPassword.class, uri("/servers/%s/os-server-password", serverId)).execute();
+	}
 }
