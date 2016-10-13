@@ -11,8 +11,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.internal.Util;
 import org.openstack4j.core.transport.ClientConstants;
 import org.openstack4j.core.transport.Config;
+import org.openstack4j.core.transport.HttpMethod;
 import org.openstack4j.core.transport.HttpRequest;
 import org.openstack4j.core.transport.ObjectMapperSingleton;
 import org.openstack4j.core.transport.UntrustedSSL;
@@ -22,13 +31,6 @@ import org.openstack4j.openstack.logging.Logger;
 import org.openstack4j.openstack.logging.LoggerFactory;
 
 import com.google.common.io.ByteStreams;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 /**
  * HttpCommand is responsible for executing the actual request driven by the HttpExecutor. 
@@ -60,38 +62,36 @@ public final class HttpCommand<R> {
     }
 
     private void initialize() {
-        client = new OkHttpClient();
-        
-        if (HttpLoggingFilter.isLoggingEnabled()) {
-        	client.interceptors().add(new LoggingInterceptor());
-        }
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         Config config = request.getConfig();
         
         if (config.getProxy() != null) {
-            client.setProxy(new Proxy(Type.HTTP, 
-                    new InetSocketAddress(config.getProxy().getRawHost(), config.getProxy().getPort())));
+            okHttpClientBuilder.proxy(new Proxy(Type.HTTP,
+                new InetSocketAddress(config.getProxy().getRawHost(), config.getProxy().getPort())));
         }
         
         if (config.getConnectTimeout() > 0)
-            client.setConnectTimeout(config.getConnectTimeout(), TimeUnit.MILLISECONDS);
+            okHttpClientBuilder.connectTimeout(config.getConnectTimeout(), TimeUnit.MILLISECONDS);
         
         if (config.getReadTimeout() > 0)
-            client.setReadTimeout(config.getReadTimeout(), TimeUnit.MILLISECONDS);
+            okHttpClientBuilder.readTimeout(config.getReadTimeout(), TimeUnit.MILLISECONDS);
         
         if (config.isIgnoreSSLVerification())
         {
-            client.setHostnameVerifier(UntrustedSSL.getHostnameVerifier());
-            client.setSslSocketFactory(UntrustedSSL.getSSLContext().getSocketFactory());
+            okHttpClientBuilder.hostnameVerifier(UntrustedSSL.getHostnameVerifier());
+            okHttpClientBuilder.sslSocketFactory(UntrustedSSL.getSSLContext().getSocketFactory());
         }
         
-        if (config.getSslContext() != null) 
-            client.setSslSocketFactory(config.getSslContext().getSocketFactory());
+        if (config.getSslContext() != null)
+            okHttpClientBuilder.sslSocketFactory(config.getSslContext().getSocketFactory());
 
         if (config.getHostNameVerifier() != null)
-            client.setHostnameVerifier(config.getHostNameVerifier());
-        
+            okHttpClientBuilder.hostnameVerifier(config.getHostNameVerifier());
+        if (HttpLoggingFilter.isLoggingEnabled()) {
+            okHttpClientBuilder.addInterceptor(new LoggingInterceptor());
+        }
+        client = okHttpClientBuilder.build();
         clientReq = new Request.Builder();
-        
         populateHeaders(request);
         populateQueryParams(request);
     }
@@ -116,7 +116,11 @@ public final class HttpCommand<R> {
         else if(request.hasJson()) {
             body = RequestBody.create(MediaType.parse(ClientConstants.CONTENT_TYPE_JSON), request.getJson());
         }
-        
+        //Added to address https://github.com/square/okhttp/issues/751
+        //Set body as empty byte array if request is POST or PUT and body is sent as null
+        if((request.getMethod() == HttpMethod.POST || request.getMethod() == HttpMethod.PUT) && body == null){
+            body = RequestBody.create(null, Util.EMPTY_BYTE_ARRAY);
+        }
         clientReq.method(request.getMethod().name(), body);
         Call call = client.newCall(clientReq.build());
         return call.execute();
