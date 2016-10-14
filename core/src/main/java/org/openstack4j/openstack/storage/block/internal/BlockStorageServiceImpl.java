@@ -1,6 +1,7 @@
 package org.openstack4j.openstack.storage.block.internal;
 
 import org.openstack4j.api.Apis;
+import org.openstack4j.api.storage.BlockBackupService;
 import org.openstack4j.api.storage.BlockQuotaSetService;
 import org.openstack4j.api.storage.BlockStorageService;
 import org.openstack4j.api.storage.BlockVolumeService;
@@ -53,5 +54,10 @@ public class BlockStorageServiceImpl extends BaseBlockStorageServices implements
     {
        return Apis.get(CinderZoneService.class); 
     }
+
+	@Override
+	public BlockBackupService backups() {
+		return Apis.get(BlockBackupService.class); 
+	}
 
 }

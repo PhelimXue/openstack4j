@@ -35,4 +35,11 @@ public interface BlockStorageService extends RestService {
 	 * @return the quota-set service
 	 */
 	BlockQuotaSetService quotaSets();
+	
+	
+	/**
+	 * for backup service
+	 * @return
+	 */
+	BlockBackupService backups();
 }
