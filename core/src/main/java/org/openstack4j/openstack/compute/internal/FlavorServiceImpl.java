@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openstack4j.api.compute.FlavorService;
-import org.openstack4j.model.compute.ActionResponse;
+import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.Flavor;
 import org.openstack4j.model.compute.FlavorAccess;
 import org.openstack4j.openstack.compute.domain.ExtraSpecsWrapper;
@@ -69,7 +69,7 @@ public class FlavorServiceImpl extends BaseComputeServices implements FlavorServ
 	@Override
 	public Flavor create(String name, int ram, int vcpus, int disk, int ephemeral, int swap, float rxtxFactor, boolean isPublic) {
 		checkNotNull(name);
-		return create(NovaFlavor.builder().name(name).ram(ram).vcpus(vcpus).disk(disk).swap(swap).rxtxFactor(rxtxFactor).isPublic(isPublic).build());
+		return create(NovaFlavor.builder().name(name).ram(ram).vcpus(vcpus).disk(disk).swap(swap).ephemeral(ephemeral).rxtxFactor(rxtxFactor).isPublic(isPublic).build());
 	}
 
 	/**

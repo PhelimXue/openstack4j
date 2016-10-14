@@ -3,7 +3,7 @@ package org.openstack4j.api.compute;
 import java.util.List;
 
 import org.openstack4j.common.RestService;
-import org.openstack4j.model.compute.ActionResponse;
+import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.FloatingIP;
 import org.openstack4j.model.compute.Server;
 
@@ -20,8 +20,7 @@ public interface ComputeFloatingIPService extends RestService {
 	 * @return the list<? extends floating i p>
 	 */
 	List<? extends FloatingIP> list();
-	
-	
+
 	/**
 	 * Lists the current Floating IP Pool Names
 	 * @return List of floating IP pool names
@@ -39,11 +38,10 @@ public interface ComputeFloatingIPService extends RestService {
 	/**
 	 * Deallocate ip address from tenant.
 	 *
-	 * @param tenantId the tenant id
 	 * @param id the id of floating ip address
 	 * @return the action response
 	 */
-     ActionResponse deallocateIP(String id);
+	ActionResponse deallocateIP(String id);
 	
 	
 	/**

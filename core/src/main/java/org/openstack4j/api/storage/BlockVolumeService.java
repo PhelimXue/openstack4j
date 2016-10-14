@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openstack4j.common.RestService;
-import org.openstack4j.model.compute.ActionResponse;
+import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.storage.block.Volume;
 import org.openstack4j.model.storage.block.VolumeType;
 import org.openstack4j.model.storage.block.VolumeUploadImage;
@@ -23,6 +23,23 @@ public interface BlockVolumeService extends RestService {
 	 * @return List of VolumeType entities
 	 */
 	List<? extends VolumeType> listVolumeTypes();
+
+    /**
+     * Deletes the specified VolumeType
+     * 
+     * @param volumeTypeId
+     *            the volume type identifier
+     */
+    void deleteVolumeType(String volumeTypeId);
+
+    /**
+     * Creates a new volume type with the specified name
+     * 
+     * @param volumeType
+     *            the volumeType for create
+     * @return the created volume type
+     */
+    VolumeType createVolumeType(VolumeType volumeType);
 
 	/**
 	 * Lists summary information for all Block Storage volumes that the tenant who submits the request can access.
@@ -123,4 +140,14 @@ public interface BlockVolumeService extends RestService {
 	 * @return the volume transfer service
 	 */
 	BlockVolumeTransferService transfer();
+
+	/**
+	 * Updates volume read-only access-mode flag
+	 *
+	 * @param volumeId ID of volume to update
+	 * @param readonly enables or disables update of volume to read-only access mode
+	 * @return the action response
+	 */
+	ActionResponse readOnlyModeUpdate(String volumeId, boolean readonly);
+
 }

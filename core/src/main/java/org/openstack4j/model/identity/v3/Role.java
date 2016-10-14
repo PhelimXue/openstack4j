@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
-import org.openstack4j.model.identity.builder.v3.RoleBuilder;
+import org.openstack4j.model.identity.v3.builder.RoleBuilder;
 
 /**
  * identity v3 role model class
@@ -29,5 +29,10 @@ public interface Role extends ModelEntity, Buildable<RoleBuilder> {
      * @return the links of the role
      */
     Map<String, String> getLinks();
+    
+    /**
+     * @return the domain id of the role
+     */
+    String getDomainId();
 
 }
