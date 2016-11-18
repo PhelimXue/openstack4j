@@ -17,7 +17,7 @@ public class CinderVolumeBackup implements Backup{
 	private static final long serialVersionUID = 1L;
 	
 	@JsonProperty("status")
-	private String status;
+	private Status status;
 	@JsonProperty("object_count")
 	private Integer objectCount;
 	@JsonProperty("container")
@@ -51,7 +51,7 @@ public class CinderVolumeBackup implements Backup{
 		return new ConcreteBackupBuilder(this);
 	}
 	@Override
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	@Override
@@ -149,13 +149,13 @@ public class CinderVolumeBackup implements Backup{
 		}
 
 		@Override
-		public BackupBuilder status(String status) {
+		public BackupBuilder status(Status status) {
 			m.status = status;
 			return this;
 		}
 
 		@Override
-		public BackupBuilder objectCount(int objectCount) {
+		public BackupBuilder objectCount(Integer objectCount) {
 			m.objectCount = objectCount;
 			return this;
 		}
@@ -197,7 +197,7 @@ public class CinderVolumeBackup implements Backup{
 		}
 
 		@Override
-		public BackupBuilder hasDependentBackups(boolean hasDependentBackups) {
+		public BackupBuilder hasDependentBackups(Boolean hasDependentBackups) {
 			m.hasDependentBackups = hasDependentBackups;
 			return this;
 		}
@@ -215,7 +215,7 @@ public class CinderVolumeBackup implements Backup{
 		}
 
 		@Override
-		public BackupBuilder size(int size) {
+		public BackupBuilder size(Integer size) {
 			m.size = size;
 			return this;
 		}
@@ -227,7 +227,7 @@ public class CinderVolumeBackup implements Backup{
 		}
 
 		@Override
-		public BackupBuilder incremental(boolean incremental) {
+		public BackupBuilder incremental(Boolean incremental) {
 			m.incremental = incremental;
 			return this;
 		}
