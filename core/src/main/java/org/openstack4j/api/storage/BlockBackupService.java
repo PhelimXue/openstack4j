@@ -8,4 +8,5 @@ import org.openstack4j.model.storage.block.backup.Backup;
 public interface BlockBackupService extends RestService{
 
 	List<? extends Backup> list();
+	Backup get(String backupId);
 }
