@@ -14,19 +14,17 @@ import org.openstack4j.model.storage.block.builder.BackupBuilder;
 public interface Backup extends ModelEntity, Buildable<BackupBuilder>{
 
 	String getStatus();
-	int getObjectCount();
+	Integer getObjectCount();
 	String getContainer();
 	String getDescription();
-	// List<E> getLinks();
 	String getAvailabilityZone();
 	String getCreatedAt();
 	String getUpdatedAt();
 	String getName();
-	boolean isHasDependentBackups();
+	Boolean isHasDependentBackups();
 	String getVolumeId();
 	String getFailReason();
-	int getSize();
-	// miss backup object
+	Integer getSize();
 	String getId();
-	boolean isIncremental();
+	Boolean isIncremental();
 }

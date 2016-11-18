@@ -1,11 +1,15 @@
 package org.openstack4j.openstack.storage.block.domain;
 
+import java.util.List;
+
 import org.openstack4j.model.storage.block.backup.Backup;
 import org.openstack4j.model.storage.block.builder.BackupBuilder;
-import org.openstack4j.model.storage.block.builder.VolumeBuilder;
+import org.openstack4j.openstack.common.ListResult;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonRootName("backup")
 public class CinderVolumeBackup implements Backup{
@@ -34,6 +38,7 @@ public class CinderVolumeBackup implements Backup{
 	private String volumeId;
 	@JsonProperty("fail_reason")
 	private String failReason;
+	@JsonInclude(Include.NON_DEFAULT)
 	@JsonProperty("size")
 	private Integer size;
 	@JsonProperty("id")
@@ -45,84 +50,90 @@ public class CinderVolumeBackup implements Backup{
 	public BackupBuilder toBuilder() {
 		return new ConcreteBackupBuilder(this);
 	}
-
 	@Override
 	public String getStatus() {
 		return status;
 	}
-
 	@Override
-	public int getObjectCount() {
+	public Integer getObjectCount() {
 		return objectCount;
 	}
-
 	@Override
 	public String getContainer() {
 		return container;
 	}
-
 	@Override
 	public String getDescription() {
 		return description;
 	}
-
 	@Override
 	public String getAvailabilityZone() {
 		return availabilityZone;
 	}
-
 	@Override
 	public String getCreatedAt() {
 		return createdAt;
 	}
-
 	@Override
 	public String getUpdatedAt() {
 		return updatedAt;
 	}
-
 	@Override
 	public String getName() {
 		return name;
 	}
-
 	@Override
-	public boolean isHasDependentBackups() {
+	public Boolean isHasDependentBackups() {
 		return hasDependentBackups;
 	}
-
 	@Override
 	public String getVolumeId() {
 		return volumeId;
 	}
-
 	@Override
 	public String getFailReason() {
 		return failReason;
 	}
-
 	@Override
-	public int getSize() {
+	public Integer getSize() {
 		return size;
 	}
-
 	@Override
 	public String getId() {
 		return id;
 	}
-
 	@Override
-	public boolean isIncremental() {
+	public Boolean isIncremental() {
 		return incremental;
 	}
 
+	/*
+	 * 因應多筆回應的設計
+	 */
+	public static class Backups extends ListResult<CinderVolumeBackup> {
+
+		private static final long serialVersionUID = 1L;
+		
+		@JsonProperty("backups")
+		private List<CinderVolumeBackup> backups;
+		
+		@Override
+		protected List<CinderVolumeBackup> value() {
+			return backups;
+		}
+	}
+	
+	/*
+	 * 該 Model 使用的 Builder
+	 */
 	public static class ConcreteBackupBuilder implements BackupBuilder {
 
 		private CinderVolumeBackup m;
 		ConcreteBackupBuilder(){
 			this(new CinderVolumeBackup());
 		}
-		ConcreteBackupBuilder(CinderVolumeBackup backup){
+		
+		ConcreteBackupBuilder(CinderVolumeBackup m){
 			this.m = m;
 		}
 		

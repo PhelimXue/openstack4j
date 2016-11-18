@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.openstack4j.api.storage.BlockBackupService;
 import org.openstack4j.model.storage.block.backup.Backup;
-import org.openstack4j.openstack.common.ListResult;
-import org.openstack4j.openstack.storage.block.domain.CinderVolumeBackup;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.openstack4j.openstack.storage.block.domain.CinderVolumeBackup.Backups;
 
 public class BlockBackupServiceImpl extends BaseBlockStorageServices implements BlockBackupService{
 
@@ -16,16 +13,4 @@ public class BlockBackupServiceImpl extends BaseBlockStorageServices implements 
 		return get(Backups.class, uri("/backups/detail")).execute().getList();
 	}
 
-	public static class Backups extends ListResult<CinderVolumeBackup> {
-
-		private static final long serialVersionUID = 1L;
-		
-		@JsonProperty("backups")
-		private List<CinderVolumeBackup> backups;
-		
-		@Override
-		protected List<CinderVolumeBackup> value() {
-			return backups;
-		}
-	}
 }
