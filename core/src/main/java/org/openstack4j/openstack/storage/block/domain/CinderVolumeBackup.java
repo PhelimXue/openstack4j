@@ -1,5 +1,6 @@
 package org.openstack4j.openstack.storage.block.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import org.openstack4j.model.storage.block.backup.Backup;
@@ -27,9 +28,9 @@ public class CinderVolumeBackup implements Backup{
 	@JsonProperty("availability_zone")
 	private String availabilityZone;
 	@JsonProperty("created_at")
-	private String createdAt;
+	private Date created;
 	@JsonProperty("updated_at")
-	private String updatedAt;
+	private Date updated;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("has_dependent_backups")
@@ -71,12 +72,12 @@ public class CinderVolumeBackup implements Backup{
 		return availabilityZone;
 	}
 	@Override
-	public String getCreatedAt() {
-		return createdAt;
+	public Date getCreated() {
+		return created;
 	}
 	@Override
-	public String getUpdatedAt() {
-		return updatedAt;
+	public Date getUpdated() {
+		return updated;
 	}
 	@Override
 	public String getName() {
@@ -179,14 +180,14 @@ public class CinderVolumeBackup implements Backup{
 		}
 
 		@Override
-		public BackupBuilder createdAt(String createdAt) {
-			m.createdAt = createdAt;
+		public BackupBuilder createdDate(Date created) {
+			m.created = created;
 			return this;
 		}
 
 		@Override
-		public BackupBuilder updatedAt(String updatedAt) {
-			m.updatedAt = updatedAt;
+		public BackupBuilder updatedDate(Date updated) {
+			m.updated = updated;
 			return this;
 		}
 

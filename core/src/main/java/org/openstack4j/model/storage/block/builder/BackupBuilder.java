@@ -1,5 +1,7 @@
 package org.openstack4j.model.storage.block.builder;
 
+import java.util.Date;
+
 import org.openstack4j.common.Buildable.Builder;
 import org.openstack4j.model.storage.block.backup.Backup;
 import org.openstack4j.model.storage.block.backup.Backup.Status;
@@ -16,8 +18,8 @@ public interface BackupBuilder extends Builder<BackupBuilder, Backup>{
 	BackupBuilder container(String container);
 	BackupBuilder description(String description);
 	BackupBuilder availabilityZone(String availabilityZone);
-	BackupBuilder createdAt(String createdAt);
-	BackupBuilder updatedAt(String updatedAt);
+	BackupBuilder createdDate(Date created);
+	BackupBuilder updatedDate(Date updated);
 	BackupBuilder name(String name);
 	BackupBuilder hasDependentBackups(Boolean hasDependentBackups);
 	BackupBuilder volumeId(String volumeId);

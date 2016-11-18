@@ -2,6 +2,7 @@ package org.openstack4j.model.storage.block.backup;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Date;
 
 import org.openstack4j.common.Buildable;
 import org.openstack4j.model.ModelEntity;
@@ -50,8 +51,8 @@ public interface Backup extends ModelEntity, Buildable<BackupBuilder>{
 	String getContainer();
 	String getDescription();
 	String getAvailabilityZone();
-	String getCreatedAt();
-	String getUpdatedAt();
+	Date getCreated();
+	Date getUpdated();
 	String getName();
 	Boolean isHasDependentBackups();
 	String getVolumeId();
