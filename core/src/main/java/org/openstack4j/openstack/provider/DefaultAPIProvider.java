@@ -124,6 +124,7 @@ import org.openstack4j.api.senlin.SenlinReceiverService;
 import org.openstack4j.api.senlin.SenlinService;
 import org.openstack4j.api.senlin.SenlinVersionService;
 import org.openstack4j.api.senlin.SenlinWebHookService;
+import org.openstack4j.api.storage.BlockBackupService;
 import org.openstack4j.api.storage.BlockQuotaSetService;
 import org.openstack4j.api.storage.BlockStorageService;
 import org.openstack4j.api.storage.BlockVolumeService;
@@ -272,6 +273,7 @@ import org.openstack4j.openstack.senlin.internal.SenlinReceiverServiceImpl;
 import org.openstack4j.openstack.senlin.internal.SenlinServiceImpl;
 import org.openstack4j.openstack.senlin.internal.SenlinVersionServiceImpl;
 import org.openstack4j.openstack.senlin.internal.SenlinWebHookServiceImpl;
+import org.openstack4j.openstack.storage.block.internal.BlockBackupServiceImpl;
 import org.openstack4j.openstack.storage.block.internal.BlockQuotaSetServiceImpl;
 import org.openstack4j.openstack.storage.block.internal.BlockStorageServiceImpl;
 import org.openstack4j.openstack.storage.block.internal.BlockVolumeServiceImpl;
@@ -474,6 +476,7 @@ public class DefaultAPIProvider implements APIProvider {
         bind(TaskService.class, TaskServiceImpl.class);
         bind(TaskService.class, TaskServiceImpl.class);
         bind(ServerTagService.class, ServerTagServiceImpl.class);
+        bind(BlockBackupService.class, BlockBackupServiceImpl.class);
     }
 
     /**
