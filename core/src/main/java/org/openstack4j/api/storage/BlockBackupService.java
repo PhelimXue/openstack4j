@@ -11,4 +11,5 @@ public interface BlockBackupService extends RestService{
 	List<? extends Backup> list();
 	Backup get(String backupId);
 	ActionResponse delete(String backupId);
+	Backup create(Backup backup);
 }

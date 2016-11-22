@@ -37,6 +37,7 @@ import org.openstack4j.model.storage.block.builder.StorageBuilders;
 import org.openstack4j.model.storage.block.builder.VolumeBuilder;
 import org.openstack4j.model.storage.block.builder.VolumeSnapshotBuilder;
 import org.openstack4j.model.storage.block.builder.VolumeTypeBuilder;
+import org.openstack4j.model.storage.block.builder.BackupBuilder;
 import org.openstack4j.model.tacker.builder.NfvBuilders;
 import org.openstack4j.model.telemetry.builder.AlarmBuilder;
 import org.openstack4j.model.telemetry.builder.TelemetryBuilders;
@@ -85,6 +86,7 @@ import org.openstack4j.openstack.storage.block.domain.CinderBlockQuotaSet;
 import org.openstack4j.openstack.storage.block.domain.CinderVolume;
 import org.openstack4j.openstack.storage.block.domain.CinderVolumeSnapshot;
 import org.openstack4j.openstack.storage.block.domain.CinderVolumeType;
+import org.openstack4j.openstack.storage.block.domain.CinderVolumeBackup;
 import org.openstack4j.openstack.tacker.builders.TackerBuilders;
 import org.openstack4j.openstack.telemetry.builder.CeilometerBuilders;
 import org.openstack4j.openstack.telemetry.domain.CeilometerAlarm;
@@ -1107,5 +1109,9 @@ public class Builders {
      */
     public static EnvironmentBuilder environment() {
         return MuranoEnvironment.builder();
+    }
+
+    public static BackupBuilder backup() {
+        return CinderVolumeBackup.builder();
     }
 }

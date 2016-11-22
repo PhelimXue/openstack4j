@@ -51,6 +51,11 @@ public class CinderVolumeBackup implements Backup{
 	public BackupBuilder toBuilder() {
 		return new ConcreteBackupBuilder(this);
 	}
+	
+	public static BackupBuilder builder() {
+		return new ConcreteBackupBuilder();
+	}
+	
 	@Override
 	public Status getStatus() {
 		return status;

@@ -7,6 +7,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import org.openstack4j.api.storage.BlockBackupService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.storage.block.backup.Backup;
+import org.openstack4j.openstack.storage.block.domain.CinderVolume;
 import org.openstack4j.openstack.storage.block.domain.CinderVolumeBackup;
 import org.openstack4j.openstack.storage.block.domain.CinderVolumeBackup.Backups;
 
@@ -27,6 +28,12 @@ public class BlockBackupServiceImpl extends BaseBlockStorageServices implements 
 	public ActionResponse delete(String backupId) {
 		checkNotNull(backupId);
         return deleteWithResponse(uri("/backups/%s", backupId)).execute();
+	}
+
+	@Override
+	public Backup create(Backup backup) {
+		checkNotNull(backup);
+		return post(CinderVolumeBackup.class, uri("/backups")).entity(backup).execute();
 	}
 
 }

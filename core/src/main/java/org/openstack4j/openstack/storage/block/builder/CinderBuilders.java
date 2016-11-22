@@ -24,4 +24,9 @@ public class CinderBuilders implements StorageBuilders {
     public VolumeSnapshotBuilder volumeSnapshot() {
         return CinderVolumeSnapshot.builder();
     }
+
+	@Override
+	public BackupBuilder backup() {
+		return CinderVolumeBackup.builder();
+	}
 }
