@@ -28,5 +28,7 @@ public interface StorageBuilders {
     public VolumeSnapshotBuilder volumeSnapshot();
     
     public BackupBuilder backup();
+    
+    public BackupRestoreBuilder backupRestore();
 
 }

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonRootName("backup")
-public class CinderVolumeBackup implements Backup{
+public class CinderBackup implements Backup{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -116,15 +116,15 @@ public class CinderVolumeBackup implements Backup{
 	/*
 	 * 因應多筆回應的設計
 	 */
-	public static class Backups extends ListResult<CinderVolumeBackup> {
+	public static class Backups extends ListResult<CinderBackup> {
 
 		private static final long serialVersionUID = 1L;
 		
 		@JsonProperty("backups")
-		private List<CinderVolumeBackup> backups;
+		private List<CinderBackup> backups;
 		
 		@Override
-		protected List<CinderVolumeBackup> value() {
+		protected List<CinderBackup> value() {
 			return backups;
 		}
 	}
@@ -134,12 +134,12 @@ public class CinderVolumeBackup implements Backup{
 	 */
 	public static class ConcreteBackupBuilder implements BackupBuilder {
 
-		private CinderVolumeBackup m;
+		private CinderBackup m;
 		ConcreteBackupBuilder(){
-			this(new CinderVolumeBackup());
+			this(new CinderBackup());
 		}
 		
-		ConcreteBackupBuilder(CinderVolumeBackup m){
+		ConcreteBackupBuilder(CinderBackup m){
 			this.m = m;
 		}
 		
@@ -150,7 +150,7 @@ public class CinderVolumeBackup implements Backup{
 
 		@Override
 		public BackupBuilder from(Backup in) {
-			m = (CinderVolumeBackup) in;
+			m = (CinderBackup) in;
 			return this;
 		}
 

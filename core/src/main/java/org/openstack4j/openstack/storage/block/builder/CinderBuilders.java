@@ -27,6 +27,11 @@ public class CinderBuilders implements StorageBuilders {
 
 	@Override
 	public BackupBuilder backup() {
-		return CinderVolumeBackup.builder();
+		return CinderBackup.builder();
+	}
+
+	@Override
+	public BackupRestoreBuilder backupRestore() {
+		return CinderBackupRestore.builder();
 	}
 }
