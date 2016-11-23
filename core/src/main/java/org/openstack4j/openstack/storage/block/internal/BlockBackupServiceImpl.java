@@ -9,7 +9,6 @@ import org.openstack4j.api.storage.BlockBackupService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.storage.block.backup.Backup;
 import org.openstack4j.model.storage.block.backup.BackupRestore;
-import org.openstack4j.openstack.storage.block.domain.CinderVolume;
 import org.openstack4j.openstack.storage.block.domain.CinderBackup;
 import org.openstack4j.openstack.storage.block.domain.CinderBackupRestore;
 import org.openstack4j.openstack.storage.block.domain.CinderBackup.Backups;
